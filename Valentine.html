@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Animation</title>
+    <style>
+        /* Gaya dasar halaman */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #ffb6c1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Efek hati berjatuhan */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10vh);
+            }
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Pesan Valentine */
+        .message {
+            position: absolute;
+            text-align: center;
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">❤️ Happy Valentine’s Day ❤️</div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            let size = Math.random() * 20 + 10;
+            heart.style.fontSize = size + "px";
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "-10vh";
+            heart.style.animationDuration = Math.random() * 5 + 3 + "s";
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
