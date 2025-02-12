@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine!</title>
+    <style>
+        @keyframes fall {
+            0% { transform: translateY(0px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-3px); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes gradientBG {
+            0% { background: linear-gradient(45deg, #ffccd5, #ff80ab, #ff4081); }
+            50% { background: linear-gradient(45deg, #ff80ab, #ff4081, #ffccd5); }
+            100% { background: linear-gradient(45deg, #ff4081, #ffccd5, #ff80ab); }
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-size: 300% 300%;
+            animation: gradientBG 6s infinite alternate;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: white;
+            font-size: 36px;
+            position: relative;
+            z-index: 100;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        img {
+            width: 250px;
+            height: auto;
+            margin: 20px;
+            animation: shake 3s infinite alternate ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+            display: inline-block;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #d81b60;
+            transform: scale(1.1);
+        }
+
+        .love {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fall 3s linear infinite;
+            z-index: 2;
+        }
+
+        p {
+            color: white;
+            font-size: 20px;
+        }
+
+        .message {
+            font-size: 24px;
+            color: white;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="audio/valen.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="container">
+        <h1 id="valentineText">💖 Selamat Hari Valentine Manis! 💖</h1>
+        <img src="img/bila.jpg" alt="Cute Cartoon">
+        <p>Apakah kamu siap untuk menjadi cintaku selamanya? 😘</p>
+        
+        <!-- Tombol Play dan Stop Music -->
+        <button onclick="playMusic()">▶ Mainkan Musik 🎶</button>
+        <button onclick="stopMusic()">⏹ Hentikan Musik 🚫</button>
+        
+        <!-- Tombol Ya, tentu! -->
+        <br><br>
+        <button class="button" onclick="showMessage()">Ya, tentu! 💕</button>
+
+        <!-- Pesan muncul setelah tombol ditekan -->
+        <p id="thankYouMessage" class="message">❤️ Yey! Terima kasih Nabila ❤️</p>
+    </div>
+
+    <script>
+        function spawnLove() {
+            let love = document.createElement("div");
+            love.className = "love";
+            love.innerHTML = "❤️";
+
+            // Mengambil posisi teks "Selamat Hari Valentine"
+            let valentineText = document.getElementById("valentineText");
+            let rect = valentineText.getBoundingClientRect();
+
+            // Menentukan posisi awal love dari atas teks
+            love.style.left = (rect.left + Math.random() * rect.width) + "px";
+            love.style.top = rect.top + "px";
+
+            love.style.animationDuration = (Math.random() * 2 + 1) + "s";
+            document.body.appendChild(love);
+
+            setTimeout(() => {
+                love.remove();
+            }, 3000);
+        }
+
+        function showMessage() {
+            document.getElementById("thankYouMessage").style.display = "block";
+        }
+
+        function playMusic() {
+            let audio = document.getElementById("bgMusic");
+            audio.play();
+        }
+
+        function stopMusic() {
+            let audio = document.getElementById("bgMusic");
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        // Memulai animasi love tanpa batas
+        setInterval(spawnLove, 300);
+    </script>
+
+</body>
+</html>
